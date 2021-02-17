@@ -1,0 +1,34 @@
+import React from "react";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import PropTypes from "prop-types";
+import Location from "./Location";
+import WeatherData from "./WeatherData";
+import "./styles.css";
+
+const WeatherLocation = ({ onWeatherLocationClick, city, data }) => (
+  <button
+    className="weatherLocationCont"
+    onClick={onWeatherLocationClick}
+    type="button"
+  >
+    <Location city={city} />
+    {data ? <WeatherData data={data} /> : <CircularProgress size={50} />}
+  </button>
+);
+
+WeatherLocation.defaultProps = {
+  data: null,
+};
+
+WeatherLocation.propTypes = {
+  city: PropTypes.string.isRequired,
+  onWeatherLocationClick: PropTypes.func.isRequired,
+  data: PropTypes.shape({
+    temperature: PropTypes.number.isRequired,
+    weatherState: PropTypes.string.isRequired,
+    humidity: PropTypes.number.isRequired,
+    wind: PropTypes.string.isRequired,
+  }),
+};
+
+export default WeatherLocation;
